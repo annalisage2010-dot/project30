@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ 
+  <style>
+    body {
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      background-color: #61f0f0;
+      color: #0fede6;
+      text-align: center;
+    }
+ 
+    .form-card {
+      width: 610px;
+      background-color: #020f00;
+      border: 6px solid #0d6366;
+      border-radius: 20px;
+      margin: 49px auto;
+      padding: 17px;
+      box-shadow: 0 0 18px #3ac0df;
+    }
+ 
+    h1 {
+      color: #1dd8d8;
+    }
+ 
+    label {
+      display:flow-root;
+      text-align: left;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+ 
+    input,
+    select {
+      width: 91%;
+      padding: 13px;
+      margin-top: 6px;
+      border: 2px solid #3ac0df;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+ 
+    button {
+      background-color: #2ddecc;
+      color: rgb(8, 0, 0);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+ 
+    button:hover {
+      background-color: #05696b;
+    }
+ 
+    #feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+ 
+    .success {
+      background-color: #7bf5df;
+      color: #0a6060;
+      border: 2px solid #06786d;
+    }
+ 
+    .error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 2px solid #ef4444;
+    }
+  </style>
+</head>
+ <body>
+ 
+  <div class="form-card">
+  <h1>School Event Registration Form</h1>
+     <p>Please fill out the form to participate in an event and get your event pass.</p>
+ 
+    <form id="eventForm">
+      <label for="studentName">Candidate Name</label>
+      <input
+        type="text"
+        id="candidateName"
+        required
+        minlength="4"
+        placeholder="Enter your name">
+ 
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        required
+        placeholder="Enter your email">
+ 
+      <label for="age">Age</label>
+      <input
+        type="number"
+        id="age"
+        required
+        min="6"
+        max="18"
+        placeholder="Enter your age">
+
+         <label for="class">Class</label>
+      <input
+        type="number"
+        id="class"
+        required
+        min="1"
+        max="12"
+        placeholder="Enter your class">
+ 
+      <label for="eventName">Select an Event</label>
+      <select id="eventName" required>
+        
+        <option value="Science Fair">Science Fair</option>
+        <option value="Talent Show">Talent Show</option>
+        <option value="Art Competition">Art Competition</option>
+        <option value="Sports Day">Sports Day</option>
+        <option value="Debate Competition">Debate Competition</option>
+        <option value="Problem Solving Competition">Problem Solving Competition</option>
+        <option value="Annual day">Annual day</option>
+      </select>
+      <button type="button" onclick="registerEvent()">Register Now</button>
+      </form>
+ 
+    <div id="feedback">
+      Waiting for registration......
+    </div>
+   </div>
+ 
+  <script>
+    function registerEvent() {
+ 
+      let form = document.getElementById("eventForm");
+      let feedback = document.getElementById("feedback");
+ 
+      try {
+           if (!form.checkValidity()) {
+          throw form.reportValidity();
+        }
+ 
+        
+        let candidateName = document.getElementById("candidateName").value;
+        let email = document.getElementById("email").value;
+        let age = Number(document.getElementById("age").value);
+        let classValue = Number(document.getElementById("class").value);
+        let eventName = document.getElementById("eventName").value;
+ 
+
+        if (candidateName.length < 4) {
+          throw "Name must have at least 4 characters.";
+        }
+ 
+        if (age < 6 || age > 18) {
+          throw "Age must be between 6 and 18.";
+        }
+ 
+        if (classValue < 1 || classValue > 12) {
+          throw "Class must be between 1 and 12.";
+        }
+ 
+        if (eventName === "") {
+          throw "Please select an event.";
+        }
+ 
+        
+        feedback.className = "";
+        feedback.innerHTML = "Loading the registration details...";
+ 
+        
+        setTimeout(function() {
+          let passNumber = Math.floor(Math.random() * 4000) + 1000;
+ 
+          feedback.className = "success";
+          feedback.innerHTML =
+            "Registration Successful!<br>" +
+            "Candidate Name: " + candidateName + "<br>" +
+            "Email: " + email + "<br>" +
+            "Age: " + age + "<br>" +
+            "Event: " + eventName + "<br>" +
+            "Your Event Pass Number: EPN-" + passNumber;
+        }, 3000);
+ 
+      } catch (error) {
+        feedback.className = "error";
+ 
+        if (error !== undefined) {
+          feedback.innerHTML = "Registration failed: " + error;
+        } else {
+          feedback.innerHTML = "Please fill out the form correctly.";
+        }
+      }
+    }
+  </script>
+ 
+</body>
+</html>
+
+</body>
+</html>
